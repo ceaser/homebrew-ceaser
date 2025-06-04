@@ -2,10 +2,11 @@
 #                https://rubydoc.brew.sh/Formula
 # PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 class SimpleScripts < Formula
-  desc "Simple script I personally use"
+  desc "Script to add todo items quickly"
   homepage "https://github.com/ceaser/simple-scripts"
-  url "https://github.com/ceaser/simple-scripts/archive/refs/tags/1.1.0.tar.gz"
-  sha256 "2960ff291b7a80bad27d379c4aede935570a37f72adf460ca5454a941b8ad77a"
+  url "https://github.com/ceaser/simple-scripts/archive/refs/tags/1.2.0.tar.gz"
+  sha256 "4fd1e9669cd3428e710b523c6049179253db7c74f0536747c02af0d50e7bd4af"
+
   license ""
 
   # depends_on "cmake" => :build
