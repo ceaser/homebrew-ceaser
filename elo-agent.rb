@@ -1,15 +1,15 @@
-# CI replaces 0.0.3, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 32f0cd1da2fdd5f1d8b3d5467dd7e1082b7768dae5f04c4e0863ff432982f33c before pushing
+# CI replaces 0.0.4, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and ccecb36f43a8ee8a8a46ca93e6ba86fa09c846b8d0cfc6c3013dbeb5decf708f before pushing
 # this file to the ceaser/homebrew-ceaser tap as Formula/elo-agent.rb.
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.3.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.4.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.0.3"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "32f0cd1da2fdd5f1d8b3d5467dd7e1082b7768dae5f04c4e0863ff432982f33c"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.0.4"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ccecb36f43a8ee8a8a46ca93e6ba86fa09c846b8d0cfc6c3013dbeb5decf708f"
   end
 
   depends_on "git"
@@ -26,11 +26,27 @@ class EloAgent < Formula
     # (the env-loading wrapper placed there by the relx overlay).
     libexec.install Dir["agent/_build/prod/rel/agent/*"]
 
-    # Install a bin stub that resolves the opt symlink before delegating,
-    # so the script works from both direct calls and launchd (no brew in PATH).
+    # Install a bin stub that chases symlinks on $0 to find the real script
+    # location, then execs the release wrapper under libexec. The chase is
+    # required for direct CLI invocation: /opt/homebrew/bin/elo-agent is a
+    # symlink to a file in the Cellar, but /opt/homebrew/bin itself is a real
+    # directory — so `cd "$(dirname "$0")" && pwd -P` would NOT resolve the
+    # symlink and would point ../libexec outside the Cellar.
+    #
+    # NOTE: this stub is duplicated as an inline heredoc in
+    # .github/workflows/agent-release.yml (the bottle build). Keep them in sync.
     (bin/"elo-agent").write <<~SH
       #!/bin/sh
-      SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
+      SOURCE="$0"
+      while [ -L "$SOURCE" ]; do
+          DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+          SOURCE="$(readlink "$SOURCE")"
+          case "$SOURCE" in
+              /*) ;;
+              *)  SOURCE="$DIR/$SOURCE" ;;
+          esac
+      done
+      SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
       exec "${SCRIPT_DIR}/../libexec/bin/elo-agent" "$@"
     SH
 
