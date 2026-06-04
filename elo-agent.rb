@@ -1,15 +1,15 @@
-# CI replaces 0.0.7, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 09875191d0c6ae6df4b922b2d859a8180fdb913590bce9a458e26f15ccee300d before pushing
+# CI replaces 0.0.8, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 04e066a5ce485682f167989d019a87a93e125219c34bdf023ff01d7380a6ec85 before pushing
 # this file to the ceaser/homebrew-ceaser tap as Formula/elo-agent.rb.
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.7.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.8.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.0.7"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "09875191d0c6ae6df4b922b2d859a8180fdb913590bce9a458e26f15ccee300d"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.0.8"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "04e066a5ce485682f167989d019a87a93e125219c34bdf023ff01d7380a6ec85"
   end
 
   depends_on "git"
@@ -34,7 +34,7 @@ class EloAgent < Formula
     # symlink and would point ../libexec outside the Cellar.
     #
     # NOTE: this stub is duplicated as an inline heredoc in
-    # .github/workflows/agent-release.yml (the bottle build). Keep them in sync.
+    # .github/workflows/release.yml (the bottle build). Keep them in sync.
     (bin/"elo-agent").write <<~SH
       #!/bin/sh
       SOURCE="$0"
@@ -52,9 +52,9 @@ class EloAgent < Formula
 
     # Install example config files.
     (share/"doc/elo-agent/examples").install \
-      "packaging/debian/examples/shared.env.example",
-      "packaging/debian/examples/local.env.example",
-      "packaging/debian/examples/README.md"
+      "packaging/debian/agent/examples/shared.env.example",
+      "packaging/debian/agent/examples/local.env.example",
+      "packaging/debian/agent/examples/README.md"
   end
 
   service do
