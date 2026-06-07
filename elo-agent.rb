@@ -1,15 +1,15 @@
-# CI replaces 0.0.10, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and c7e4f852a7b35b0aa1823b7fad99ff33497e30b1303a2f6c44266a9611b14a34 before pushing
+# CI replaces 0.0.11, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 89e56d7e809b2bc47b3f5039e5f51b590e4d386b199c13cf51d7160781ed69d7 before pushing
 # this file to the ceaser/homebrew-ceaser tap as Formula/elo-agent.rb.
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.10.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.11.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.0.10"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c7e4f852a7b35b0aa1823b7fad99ff33497e30b1303a2f6c44266a9611b14a34"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.0.11"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "89e56d7e809b2bc47b3f5039e5f51b590e4d386b199c13cf51d7160781ed69d7"
   end
 
   depends_on "git"
@@ -30,31 +30,17 @@ class EloAgent < Formula
     # location, then execs the release wrapper under libexec. The chase is
     # required for direct CLI invocation: /opt/homebrew/bin/elo-agent is a
     # symlink to a file in the Cellar, but /opt/homebrew/bin itself is a real
-    # directory — so `cd "$(dirname "$0")" && pwd -P` would NOT resolve the
+    # directory — `cd "$(dirname "$0")" && pwd -P` would NOT resolve the
     # symlink and would point ../libexec outside the Cellar.
-    #
-    # NOTE: this stub is duplicated as an inline heredoc in
-    # .github/workflows/release.yml (the bottle build). Keep them in sync.
-    (bin/"elo-agent").write <<~SH
-      #!/bin/sh
-      SOURCE="$0"
-      while [ -L "$SOURCE" ]; do
-          DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
-          SOURCE="$(readlink "$SOURCE")"
-          case "$SOURCE" in
-              /*) ;;
-              *)  SOURCE="$DIR/$SOURCE" ;;
-          esac
-      done
-      SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
-      exec "${SCRIPT_DIR}/../libexec/bin/elo-agent" "$@"
-    SH
+    (bin/"elo-agent").write \
+      (buildpath/"packaging/homebrew/bin-stub.sh").read.gsub("__NAME__", "elo-agent")
 
     # Install example config files.
     (share/"doc/elo-agent/examples").install \
       "packaging/debian/agent/examples/shared.env.example",
       "packaging/debian/agent/examples/local.env.example",
-      "packaging/debian/agent/examples/README.md"
+      "packaging/homebrew/agent/examples/README.md",
+      "packaging/homebrew/agent/examples/logs-retention.launchd.plist"
   end
 
   service do

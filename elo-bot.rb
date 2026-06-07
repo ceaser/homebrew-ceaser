@@ -1,15 +1,15 @@
-# CI replaces 0.0.10, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 04a3dc557745acff8165dd0cf664adf2bece7dffcb67f8dea314b2138dc072af before pushing
+# CI replaces 0.0.11, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 74862877dff05f56e6180b21fb77ba6d425574ae8d2fb0f51df1a22651a36281 before pushing
 # this file to the ceaser/homebrew-ceaser tap as Formula/elo-bot.rb.
 class EloBot < Formula
   desc "ELO bot -- Telegram front-end for ELO agents"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.10.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.11.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.0.10"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "04a3dc557745acff8165dd0cf664adf2bece7dffcb67f8dea314b2138dc072af"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.0.11"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "74862877dff05f56e6180b21fb77ba6d425574ae8d2fb0f51df1a22651a36281"
   end
 
   depends_on "erlang" => :build
@@ -26,25 +26,10 @@ class EloBot < Formula
     # location, then execs the release wrapper under libexec. The chase is
     # required for direct CLI invocation: /opt/homebrew/bin/elo-bot is a
     # symlink to a file in the Cellar, but /opt/homebrew/bin itself is a real
-    # directory — so `cd "$(dirname "$0")" && pwd -P` would NOT resolve the
+    # directory — `cd "$(dirname "$0")" && pwd -P` would NOT resolve the
     # symlink and would point ../libexec outside the Cellar.
-    #
-    # NOTE: this stub is duplicated as an inline heredoc in
-    # .github/workflows/release.yml (the bottle build). Keep them in sync.
-    (bin/"elo-bot").write <<~SH
-      #!/bin/sh
-      SOURCE="$0"
-      while [ -L "$SOURCE" ]; do
-          DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
-          SOURCE="$(readlink "$SOURCE")"
-          case "$SOURCE" in
-              /*) ;;
-              *)  SOURCE="$DIR/$SOURCE" ;;
-          esac
-      done
-      SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
-      exec "${SCRIPT_DIR}/../libexec/bin/elo-bot" "$@"
-    SH
+    (bin/"elo-bot").write \
+      (buildpath/"packaging/homebrew/bin-stub.sh").read.gsub("__NAME__", "elo-bot")
 
     (share/"doc/elo-bot/examples").install \
       "packaging/debian/bot/examples/bot.env.example",
