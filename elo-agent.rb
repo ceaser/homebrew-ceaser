@@ -1,15 +1,15 @@
-# CI replaces 0.0.13, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 49bdfe708d124918c376a195298bdb3aed41c62302446d5ea021bffbb72cb674 before pushing
+# CI replaces 0.0.14, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 90eed7995d5cc3a9d3f4cf532dff33d40e772ca8b10d24f6822f613cd45dc0ed before pushing
 # this file to the ceaser/homebrew-ceaser tap as Formula/elo-agent.rb.
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.13.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.14.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.0.13"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "49bdfe708d124918c376a195298bdb3aed41c62302446d5ea021bffbb72cb674"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.0.14"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "90eed7995d5cc3a9d3f4cf532dff33d40e772ca8b10d24f6822f613cd45dc0ed"
   end
 
   depends_on "git"
