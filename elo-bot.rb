@@ -1,15 +1,15 @@
-# CI replaces 0.0.18, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and e15acaf6fab0784c77887be74fdbbf494df4cba8e283246e4efd05aa5b411edd before pushing
+# CI replaces 0.0.19, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and ba5c23b53d888a5a79cd464fda611e68a8ed0a4d956beb85158d41cd186f17f3 before pushing
 # this file to the ceaser/homebrew-ceaser tap as Formula/elo-bot.rb.
 class EloBot < Formula
   desc "ELO bot -- Telegram front-end for ELO agents"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.18.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.0.19.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.0.18"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e15acaf6fab0784c77887be74fdbbf494df4cba8e283246e4efd05aa5b411edd"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.0.19"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ba5c23b53d888a5a79cd464fda611e68a8ed0a4d956beb85158d41cd186f17f3"
   end
 
   depends_on "erlang" => :build
