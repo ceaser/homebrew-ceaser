@@ -1,4 +1,4 @@
-# CI replaces 0.1.0, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 8c7a4c2a0b871f7ee74a4e4e56c3935609f6ef6d972eefc7e6bdf7132689f037 before pushing
+# CI replaces 0.1.0, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 2dc82c3df4c426ad2878c2556dab87c7a4b185bc56518bea16ec05138ea0f711 before pushing
 # this file to the ceaser/homebrew-ceaser tap as Formula/elo-bot.rb.
 class EloBot < Formula
   desc "ELO bot -- Telegram front-end for ELO agents"
@@ -9,7 +9,7 @@ class EloBot < Formula
 
   bottle do
     root_url "https://github.com/ceaser/elo/releases/download/v0.1.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8c7a4c2a0b871f7ee74a4e4e56c3935609f6ef6d972eefc7e6bdf7132689f037"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2dc82c3df4c426ad2878c2556dab87c7a4b185bc56518bea16ec05138ea0f711"
   end
 
   depends_on "erlang" => :build
