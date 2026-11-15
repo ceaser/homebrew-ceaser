@@ -1,15 +1,13 @@
-# CI replaces 0.1.2, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and 32067a2b4ec66f7910c3721d5cb2e8c66a3d47e656f1f37dccb9d728917bcd96 before pushing
-# this file to the ceaser/homebrew-ceaser tap as Formula/elo-bot.rb.
 class EloBot < Formula
   desc "ELO bot -- Telegram front-end for ELO agents"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.1.2.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.3.0.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.1.2"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "32067a2b4ec66f7910c3721d5cb2e8c66a3d47e656f1f37dccb9d728917bcd96"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.3.0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "92e0549d937066e42f4e53daae16072fb90ceee98e78dd3c622176fc5126700d"
   end
 
   depends_on "erlang" => :build
@@ -22,12 +20,6 @@ class EloBot < Formula
 
     libexec.install Dir["bot/_build/prod/rel/bot/*"]
 
-    # Install a bin stub that chases symlinks on $0 to find the real script
-    # location, then execs the release wrapper under libexec. The chase is
-    # required for direct CLI invocation: /opt/homebrew/bin/elo-bot is a
-    # symlink to a file in the Cellar, but /opt/homebrew/bin itself is a real
-    # directory — `cd "$(dirname "$0")" && pwd -P` would NOT resolve the
-    # symlink and would point ../libexec outside the Cellar.
     (bin/"elo-bot").write \
       (buildpath/"packaging/homebrew/bin-stub.sh").read.gsub("__NAME__", "elo-bot")
 

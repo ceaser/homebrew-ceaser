@@ -1,15 +1,13 @@
-# CI replaces 0.1.2, 0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5, and eda510fe170d88ba28a861a6632f06604254ea69dbd3e6616983ed45f6c0e393 before pushing
-# this file to the ceaser/homebrew-ceaser tap as Formula/elo-agent.rb.
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.1.2.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.3.0.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.1.2"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "eda510fe170d88ba28a861a6632f06604254ea69dbd3e6616983ed45f6c0e393"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.3.0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7d9c1cac5b0235e14eedaca6eb81c186da9b7ad3b4885129f2f05b9d7fced929"
   end
 
   depends_on "git"
@@ -17,25 +15,15 @@ class EloAgent < Formula
   depends_on "rebar3" => :build
 
   def install
-    # Build the OTP release with bundled ERTS.
     cd "agent" do
       system "rebar3", "as", "prod", "release"
     end
 
-    # Install the release tree.  The release already contains bin/elo-agent
-    # (the env-loading wrapper placed there by the relx overlay).
     libexec.install Dir["agent/_build/prod/rel/agent/*"]
 
-    # Install a bin stub that chases symlinks on $0 to find the real script
-    # location, then execs the release wrapper under libexec. The chase is
-    # required for direct CLI invocation: /opt/homebrew/bin/elo-agent is a
-    # symlink to a file in the Cellar, but /opt/homebrew/bin itself is a real
-    # directory — `cd "$(dirname "$0")" && pwd -P` would NOT resolve the
-    # symlink and would point ../libexec outside the Cellar.
     (bin/"elo-agent").write \
       (buildpath/"packaging/homebrew/bin-stub.sh").read.gsub("__NAME__", "elo-agent")
 
-    # Install example config files.
     (share/"doc/elo-agent/examples").install \
       "packaging/debian/agent/examples/shared.env.example",
       "packaging/debian/agent/examples/local.env.example",
