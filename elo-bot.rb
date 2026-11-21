@@ -1,13 +1,13 @@
 class EloBot < Formula
   desc "ELO bot -- Telegram front-end for ELO agents"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.10.0.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.11.0.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.10.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "48aded6e8fc74f0939574129cb2d0101a8a43743eadae15b80b53276a4ca850a"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.11.0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fb006281339f82d66b0b2cefe00cb35f4212ee79c9334ac234fb2750c281033e"
   end
 
   depends_on "erlang" => :build
