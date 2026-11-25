@@ -1,13 +1,13 @@
 class EloConsole < Formula
   desc "ELO console -- local web console for the ELO Operator"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.16.0.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.16.1.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.16.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "99cbbd803fdcc8a99bd4ec51370c7278b5a4b4c70c8d69904c106f56a9f6928f"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.16.1"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f5363ae98b595522bd0ce441ad3495eca674ffe197a0d67fa7409e7352f1c6e3"
   end
 
   depends_on "elixir" => :build
