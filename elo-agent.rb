@@ -1,13 +1,14 @@
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
   homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.16.1.tar.gz"
+  url "https://github.com/ceaser/elo/archive/refs/tags/v0.17.0.tar.gz"
   sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license "MIT"
 
   bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.16.1"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "646a83f0ac57cc5e97dcc024383d189e7f1143d0b4966da07711a1a7684f9e9b"
+    root_url "https://github.com/ceaser/elo/releases/download/v0.17.0"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fa465273f710d032da4c3b22294370fd08d9bc18e03dc8e8a14dea21a804bbad"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "fa465273f710d032da4c3b22294370fd08d9bc18e03dc8e8a14dea21a804bbad"
   end
 
   depends_on "git"
