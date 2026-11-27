@@ -1,9 +1,9 @@
 class EloBot < Formula
   desc "ELO bot -- Telegram front-end for ELO agents"
   homepage "https://github.com/ceaser/homebrew-ceaser"
-  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-bot-v0.18.0/elo-bot-0.18.0-arm64.tar.gz"
-  version "0.18.0"
-  sha256 "d8810a73bcfb09215178055f9c596c8c05eec890e7f425894f28e30b1ca11741"
+  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-bot-v0.18.1/elo-bot-0.18.1-arm64.tar.gz"
+  version "0.18.1"
+  sha256 "ff731a6aa241de05e20dff21c8a71d6a1022143644736ec4c3fc2e815ba0b8ae"
 
   depends_on arch: :arm64
   depends_on :macos
