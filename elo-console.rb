@@ -1,36 +1,15 @@
 class EloConsole < Formula
   desc "ELO console -- local web console for the ELO Operator"
-  homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.17.0.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
-  license "MIT"
+  homepage "https://github.com/ceaser/homebrew-ceaser"
+  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-console-v0.18.0/elo-console-0.18.0-arm64.tar.gz"
+  version "0.18.0"
+  sha256 "65936037bb23ebfdb0b6cd5338d9a1d58baa0a698c87d1077039051ca7b7f7b5"
 
-  bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.17.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "06cc176f7c83201b3d3eee5c21ee48ad31a128ecdd7523b28528013bc6b86c9d"
-  end
-
-  depends_on "elixir" => :build
-  depends_on "erlang" => :build
+  depends_on arch: :arm64
+  depends_on :macos
 
   def install
-    cd "console" do
-      ENV["MIX_ENV"] = "prod"
-      system "mix", "local.hex", "--force"
-      system "mix", "local.rebar", "--force"
-      system "mix", "deps.get", "--only", "prod"
-      system "mix", "assets.setup"
-      system "mix", "assets.deploy"
-      system "mix", "release", "--overwrite"
-    end
-
-    libexec.install Dir["console/_build/prod/rel/console/*"]
-
-    (bin/"elo-console").write \
-      (buildpath/"packaging/homebrew/bin-stub.sh").read.gsub("__NAME__", "elo-console")
-
-    (share/"doc/elo-console/examples").install \
-      "packaging/debian/console/examples/console.env.example"
+    prefix.install Dir["*"]
   end
 
   service do

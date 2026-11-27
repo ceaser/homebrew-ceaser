@@ -1,35 +1,16 @@
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
-  homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.17.0.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
-  license "MIT"
+  homepage "https://github.com/ceaser/homebrew-ceaser"
+  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-agent-v0.18.0/elo-agent-0.18.0-arm64.tar.gz"
+  version "0.18.0"
+  sha256 "18f30fec55f79e32d322538355e1c938df6caded26f7c1b116a5755314b430ed"
 
-  bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.17.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fa465273f710d032da4c3b22294370fd08d9bc18e03dc8e8a14dea21a804bbad"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe: "fa465273f710d032da4c3b22294370fd08d9bc18e03dc8e8a14dea21a804bbad"
-  end
-
+  depends_on arch: :arm64
+  depends_on :macos
   depends_on "git"
-  depends_on "erlang" => :build
-  depends_on "rebar3" => :build
 
   def install
-    cd "agent" do
-      system "rebar3", "as", "prod", "release"
-    end
-
-    libexec.install Dir["agent/_build/prod/rel/agent/*"]
-
-    (bin/"elo-agent").write \
-      (buildpath/"packaging/homebrew/agent/bin-stub.sh").read.gsub("__NAME__", "elo-agent")
-
-    (share/"doc/elo-agent/examples").install \
-      "packaging/debian/agent/examples/shared.env.example",
-      "packaging/debian/agent/examples/local.env.example",
-      "packaging/homebrew/agent/examples/README.md",
-      "packaging/homebrew/agent/examples/logs-retention.launchd.plist"
+    prefix.install Dir["*"]
   end
 
   service do

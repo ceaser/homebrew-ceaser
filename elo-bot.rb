@@ -1,32 +1,15 @@
 class EloBot < Formula
   desc "ELO bot -- Telegram front-end for ELO agents"
-  homepage "https://github.com/ceaser/elo"
-  url "https://github.com/ceaser/elo/archive/refs/tags/v0.17.0.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
-  license "MIT"
+  homepage "https://github.com/ceaser/homebrew-ceaser"
+  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-bot-v0.18.0/elo-bot-0.18.0-arm64.tar.gz"
+  version "0.18.0"
+  sha256 "d8810a73bcfb09215178055f9c596c8c05eec890e7f425894f28e30b1ca11741"
 
-  bottle do
-    root_url "https://github.com/ceaser/elo/releases/download/v0.17.0"
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2a5107a0a8ccd7f22fa427bdfa0e3b6b62108c21b92a8c1f9879256e9938ad7c"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe: "2a5107a0a8ccd7f22fa427bdfa0e3b6b62108c21b92a8c1f9879256e9938ad7c"
-  end
-
-  depends_on "erlang" => :build
-  depends_on "rebar3" => :build
+  depends_on arch: :arm64
+  depends_on :macos
 
   def install
-    cd "bot" do
-      system "rebar3", "as", "prod", "release"
-    end
-
-    libexec.install Dir["bot/_build/prod/rel/bot/*"]
-
-    (bin/"elo-bot").write \
-      (buildpath/"packaging/homebrew/bin-stub.sh").read.gsub("__NAME__", "elo-bot")
-
-    (share/"doc/elo-bot/examples").install \
-      "packaging/debian/bot/examples/bot.env.example",
-      "packaging/debian/bot/examples/README.md"
+    prefix.install Dir["*"]
   end
 
   service do
