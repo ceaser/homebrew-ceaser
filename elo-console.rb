@@ -1,9 +1,9 @@
 class EloConsole < Formula
   desc "ELO console -- local web console for the ELO Operator"
   homepage "https://github.com/ceaser/homebrew-ceaser"
-  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-console-v0.19.0/elo-console-0.19.0-arm64.tar.gz"
-  version "0.19.0"
-  sha256 "05771490c17489b346736e9fa5e76fe1f0730183d1425f2a2c126cd56ef72f65"
+  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-console-v0.19.1/elo-console-0.19.1-arm64.tar.gz"
+  version "0.19.1"
+  sha256 "a47059718159b574c1737d800b0c2325a3d6e69ccf2a0d0ea54e6a07372743e1"
 
   depends_on arch: :arm64
   depends_on :macos
