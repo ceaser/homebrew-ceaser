@@ -1,9 +1,9 @@
 class EloAgent < Formula
   desc "ELO agent -- Claude coding assistant for Telegram"
   homepage "https://github.com/ceaser/homebrew-ceaser"
-  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-agent-v0.18.1/elo-agent-0.18.1-arm64.tar.gz"
-  version "0.18.1"
-  sha256 "b9df67049e69b9356da68716cc6d5a56981044f1e6c0566327d09d0c0373cfe8"
+  url "https://github.com/ceaser/homebrew-ceaser/releases/download/elo-agent-v0.19.0/elo-agent-0.19.0-arm64.tar.gz"
+  version "0.19.0"
+  sha256 "117041ff1808775535fce6ae4f0a1ac7f03ae53262fa14b1e122f6421e614232"
 
   depends_on arch: :arm64
   depends_on :macos
